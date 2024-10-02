@@ -1,0 +1,1051 @@
+GAS LISTING /tmp/ccMULnlE.s 			page 1
+
+
+   1              		.file	"testBarrier.cpp"
+   2              		.option pic
+   3              		.option norelax
+   4              		.text
+   5              	.Ltext0:
+   6              		.section	.rodata._ZN4Test3runEv.str1.8,"aMS",@progbits,1
+   7              		.align	3
+   8              	.LC0:
+   9 0000 54687265 		.string	"Thread id= "
+   9      61642069 
+   9      643D2000 
+  10 000c 00000000 		.align	3
+  11              	.LC1:
+  12 0010 3A205354 		.string	": START!\n"
+  12      41525421 
+  12      0A00
+  13 001a 00000000 		.align	3
+  13      0000
+  14              	.LC2:
+  15 0020 20497465 		.string	" Iteration="
+  15      72617469 
+  15      6F6E3D00 
+  16 002c 00000000 		.align	3
+  17              	.LC3:
+  18 0030 20205468 		.string	"  Thread id= "
+  18      72656164 
+  18      2069643D 
+  18      2000
+  19 003e 0000     		.align	3
+  20              	.LC4:
+  21 0040 3A204669 		.string	": Finished!\n"
+  21      6E697368 
+  21      6564210A 
+  21      00
+  22              		.section	.text._ZN4Test3runEv,"axG",@progbits,_ZN4Test3runEv,comdat
+  23              		.align	2
+  24              		.weak	_ZN4Test3runEv
+  26              	_ZN4Test3runEv:
+  27              	.LFB4:
+  28              		.file 1 "tests/testBarrier.cpp"
+   1:tests/testBarrier.cpp **** //
+   2:tests/testBarrier.cpp **** // Created by os on 9/10/24.
+   3:tests/testBarrier.cpp **** //
+   4:tests/testBarrier.cpp **** 
+   5:tests/testBarrier.cpp **** #include "testBarrier.hpp"
+   6:tests/testBarrier.cpp **** #include "../h/syscall_cpp.hpp"
+   7:tests/testBarrier.cpp **** 
+   8:tests/testBarrier.cpp **** #include "printing.hpp"
+   9:tests/testBarrier.cpp **** 
+  10:tests/testBarrier.cpp **** #define N  10
+  11:tests/testBarrier.cpp **** 
+  12:tests/testBarrier.cpp **** 
+  13:tests/testBarrier.cpp **** static int numberOfThreads = 0;
+  14:tests/testBarrier.cpp **** 
+  15:tests/testBarrier.cpp **** class Test: public Thread {
+  16:tests/testBarrier.cpp **** public:
+  17:tests/testBarrier.cpp ****     Test():Thread() {}
+GAS LISTING /tmp/ccMULnlE.s 			page 2
+
+
+  18:tests/testBarrier.cpp **** 
+  19:tests/testBarrier.cpp ****     void run() override {
+  29              		.loc 1 19 10
+  30              		.cfi_startproc
+  31              	.LVL0:
+  32 0000 130101FD 		addi	sp,sp,-48
+  33              		.cfi_def_cfa_offset 48
+  34 0004 23341102 		sd	ra,40(sp)
+  35 0008 23308102 		sd	s0,32(sp)
+  36 000c 233C9100 		sd	s1,24(sp)
+  37 0010 23382101 		sd	s2,16(sp)
+  38 0014 23343101 		sd	s3,8(sp)
+  39              		.cfi_offset 1, -8
+  40              		.cfi_offset 8, -16
+  41              		.cfi_offset 9, -24
+  42              		.cfi_offset 18, -32
+  43              		.cfi_offset 19, -40
+  44 0018 13040103 		addi	s0,sp,48
+  45              		.cfi_def_cfa 8, 0
+  20:tests/testBarrier.cpp ****         functionCMod(nullptr);
+  46              		.loc 1 20 9
+  47              	.LVL1:
+  48              	.LBB18:
+  49              	.LBB19:
+  21:tests/testBarrier.cpp ****     }
+  22:tests/testBarrier.cpp **** 
+  23:tests/testBarrier.cpp ****     void functionCMod(void* ptr) {
+  24:tests/testBarrier.cpp ****         int id = getThreadId();
+  50              		.loc 1 24 9
+  51              		.loc 1 24 29 is_stmt 0
+  52 001c 97000000 		call	_Z11getThreadIdv@plt
+  52      E7800000 
+  53              	.LVL2:
+  54 0024 93040500 		mv	s1,a0
+  55              	.LVL3:
+  25:tests/testBarrier.cpp ****         printString("Thread id= ");
+  56              		.loc 1 25 9 is_stmt 1
+  57              		.loc 1 25 20 is_stmt 0
+  58 0028 17050000 		lla	a0,.LC0
+  58      13050500 
+  59 0030 97000000 		call	_Z11printStringPKc@plt
+  59      E7800000 
+  60              	.LVL4:
+  26:tests/testBarrier.cpp ****         printInt(id);
+  61              		.loc 1 26 9 is_stmt 1
+  62              		.loc 1 26 17 is_stmt 0
+  63 0038 13060000 		li	a2,0
+  64 003c 9305A000 		li	a1,10
+  65 0040 13850400 		mv	a0,s1
+  66 0044 97000000 		call	_Z8printIntiii@plt
+  66      E7800000 
+  67              	.LVL5:
+  27:tests/testBarrier.cpp ****         printString(": START!\n");
+  68              		.loc 1 27 9 is_stmt 1
+  69              		.loc 1 27 20 is_stmt 0
+  70 004c 17050000 		lla	a0,.LC1
+  70      13050500 
+GAS LISTING /tmp/ccMULnlE.s 			page 3
+
+
+  71 0054 97000000 		call	_Z11printStringPKc@plt
+  71      E7800000 
+  72              	.LVL6:
+  28:tests/testBarrier.cpp **** 
+  29:tests/testBarrier.cpp ****         for(int i = 0; i < 3; i++) {
+  73              		.loc 1 29 9 is_stmt 1
+  74              	.LBB20:
+  75              		.loc 1 29 17 is_stmt 0
+  76 005c 93040000 		li	s1,0
+  77              	.LVL7:
+  78 0060 6F008009 		j	.L7
+  79              	.LVL8:
+  80              	.L4:
+  81              	.LBB21:
+  82              	.LBB22:
+  83              	.LBB23:
+  30:tests/testBarrier.cpp ****            // printString("u petlji sam");
+  31:tests/testBarrier.cpp ****             int id = getThreadId();
+  32:tests/testBarrier.cpp ****             for (int j = 0; j < 1000 * id; j++) {
+  33:tests/testBarrier.cpp ****                 for (uint64 k = 0; k < 30000; k++) { /* busy wait */ }
+  34:tests/testBarrier.cpp ****                 thread_dispatch();
+  84              		.loc 1 34 17 is_stmt 1
+  85              		.loc 1 34 32 is_stmt 0
+  86 0064 97000000 		call	_Z15thread_dispatchv@plt
+  86      E7800000 
+  87              	.LVL9:
+  88              	.LBE23:
+  32:tests/testBarrier.cpp ****                 for (uint64 k = 0; k < 30000; k++) { /* busy wait */ }
+  89              		.loc 1 32 13 is_stmt 1
+  90 006c 9B891900 		addiw	s3,s3,1
+  91              	.LVL10:
+  92              	.L6:
+  32:tests/testBarrier.cpp ****                 for (uint64 k = 0; k < 30000; k++) { /* busy wait */ }
+  93              		.loc 1 32 31
+  32:tests/testBarrier.cpp ****                 for (uint64 k = 0; k < 30000; k++) { /* busy wait */ }
+  94              		.loc 1 32 38 is_stmt 0
+  95 0070 9307803E 		li	a5,1000
+  96 0074 BB872703 		mulw	a5,a5,s2
+  32:tests/testBarrier.cpp ****                 for (uint64 k = 0; k < 30000; k++) { /* busy wait */ }
+  97              		.loc 1 32 31
+  98 0078 63DEF900 		ble	a5,s3,.L3
+  99              	.LBB25:
+ 100              	.LBB24:
+  33:tests/testBarrier.cpp ****                 thread_dispatch();
+ 101              		.loc 1 33 29
+ 102 007c 93070000 		li	a5,0
+ 103              	.L5:
+ 104              	.LVL11:
+  33:tests/testBarrier.cpp ****                 thread_dispatch();
+ 105              		.loc 1 33 38 is_stmt 1
+ 106 0080 37770000 		li	a4,28672
+ 107 0084 1307F752 		addi	a4,a4,1327
+ 108 0088 E36EF7FC 		bgtu	a5,a4,.L4
+  33:tests/testBarrier.cpp ****                 thread_dispatch();
+ 109              		.loc 1 33 17
+ 110 008c 93871700 		addi	a5,a5,1
+ 111              	.LVL12:
+GAS LISTING /tmp/ccMULnlE.s 			page 4
+
+
+ 112 0090 6FF01FFF 		j	.L5
+ 113              	.LVL13:
+ 114              	.L3:
+ 115              	.LBE24:
+ 116              	.LBE25:
+ 117              	.LBE22:
+  35:tests/testBarrier.cpp ****             }
+  36:tests/testBarrier.cpp **** 
+  37:tests/testBarrier.cpp ****             barrier();
+ 118              		.loc 1 37 13
+ 119              		.loc 1 37 20 is_stmt 0
+ 120 0094 97000000 		call	_ZN6Thread7barrierEv@plt
+ 120      E7800000 
+ 121              	.LVL14:
+  38:tests/testBarrier.cpp ****             printString(" Iteration=");
+ 122              		.loc 1 38 13 is_stmt 1
+ 123              		.loc 1 38 24 is_stmt 0
+ 124 009c 17050000 		lla	a0,.LC2
+ 124      13050500 
+ 125 00a4 97000000 		call	_Z11printStringPKc@plt
+ 125      E7800000 
+ 126              	.LVL15:
+  39:tests/testBarrier.cpp ****             printInt(i);
+ 127              		.loc 1 39 13 is_stmt 1
+ 128              		.loc 1 39 21 is_stmt 0
+ 129 00ac 13060000 		li	a2,0
+ 130 00b0 9305A000 		li	a1,10
+ 131 00b4 13850400 		mv	a0,s1
+ 132 00b8 97000000 		call	_Z8printIntiii@plt
+ 132      E7800000 
+ 133              	.LVL16:
+  40:tests/testBarrier.cpp ****             printString("  Thread id= ");
+ 134              		.loc 1 40 13 is_stmt 1
+ 135              		.loc 1 40 24 is_stmt 0
+ 136 00c0 17050000 		lla	a0,.LC3
+ 136      13050500 
+ 137 00c8 97000000 		call	_Z11printStringPKc@plt
+ 137      E7800000 
+ 138              	.LVL17:
+  41:tests/testBarrier.cpp ****             printInt(id);
+ 139              		.loc 1 41 13 is_stmt 1
+ 140              		.loc 1 41 21 is_stmt 0
+ 141 00d0 13060000 		li	a2,0
+ 142 00d4 9305A000 		li	a1,10
+ 143 00d8 13050900 		mv	a0,s2
+ 144 00dc 97000000 		call	_Z8printIntiii@plt
+ 144      E7800000 
+ 145              	.LVL18:
+  42:tests/testBarrier.cpp ****             printString(": Finished!\n");
+ 146              		.loc 1 42 13 is_stmt 1
+ 147              		.loc 1 42 24 is_stmt 0
+ 148 00e4 17050000 		lla	a0,.LC4
+ 148      13050500 
+ 149 00ec 97000000 		call	_Z11printStringPKc@plt
+ 149      E7800000 
+ 150              	.LVL19:
+ 151              	.LBE21:
+GAS LISTING /tmp/ccMULnlE.s 			page 5
+
+
+  29:tests/testBarrier.cpp ****            // printString("u petlji sam");
+ 152              		.loc 1 29 9 is_stmt 1
+ 153 00f4 9B841400 		addiw	s1,s1,1
+ 154              	.LVL20:
+ 155              	.L7:
+  29:tests/testBarrier.cpp ****            // printString("u petlji sam");
+ 156              		.loc 1 29 26
+ 157 00f8 93072000 		li	a5,2
+ 158 00fc 63CC9700 		bgt	s1,a5,.L1
+ 159              	.LBB27:
+  31:tests/testBarrier.cpp ****             for (int j = 0; j < 1000 * id; j++) {
+ 160              		.loc 1 31 13
+  31:tests/testBarrier.cpp ****             for (int j = 0; j < 1000 * id; j++) {
+ 161              		.loc 1 31 33 is_stmt 0
+ 162 0100 97000000 		call	_Z11getThreadIdv@plt
+ 162      E7800000 
+ 163              	.LVL21:
+ 164 0108 13090500 		mv	s2,a0
+ 165              	.LVL22:
+  32:tests/testBarrier.cpp ****                 for (uint64 k = 0; k < 30000; k++) { /* busy wait */ }
+ 166              		.loc 1 32 13 is_stmt 1
+ 167              	.LBB26:
+  32:tests/testBarrier.cpp ****                 for (uint64 k = 0; k < 30000; k++) { /* busy wait */ }
+ 168              		.loc 1 32 22 is_stmt 0
+ 169 010c 93090000 		li	s3,0
+ 170 0110 6FF01FF6 		j	.L6
+ 171              	.LVL23:
+ 172              	.L1:
+ 173              	.LBE26:
+ 174              	.LBE27:
+ 175              	.LBE20:
+ 176              	.LBE19:
+ 177              	.LBE18:
+  21:tests/testBarrier.cpp **** 
+ 178              		.loc 1 21 5
+ 179 0114 83308102 		ld	ra,40(sp)
+ 180              		.cfi_restore 1
+ 181 0118 03340102 		ld	s0,32(sp)
+ 182              		.cfi_restore 8
+ 183              		.cfi_def_cfa 2, 48
+ 184 011c 83348101 		ld	s1,24(sp)
+ 185              		.cfi_restore 9
+ 186              	.LVL24:
+ 187 0120 03390101 		ld	s2,16(sp)
+ 188              		.cfi_restore 18
+ 189 0124 83398100 		ld	s3,8(sp)
+ 190              		.cfi_restore 19
+ 191 0128 13010103 		addi	sp,sp,48
+ 192              		.cfi_def_cfa_offset 0
+ 193 012c 67800000 		jr	ra
+ 194              		.cfi_endproc
+ 195              	.LFE4:
+ 197              		.section	.text._ZN4TestD2Ev,"axG",@progbits,_ZN4TestD5Ev,comdat
+ 198              		.align	2
+ 199              		.weak	_ZN4TestD2Ev
+ 201              	_ZN4TestD2Ev:
+ 202              	.LFB8:
+GAS LISTING /tmp/ccMULnlE.s 			page 6
+
+
+  15:tests/testBarrier.cpp **** public:
+ 203              		.loc 1 15 7 is_stmt 1
+ 204              		.cfi_startproc
+ 205              	.LVL25:
+ 206 0000 130101FF 		addi	sp,sp,-16
+ 207              		.cfi_def_cfa_offset 16
+ 208 0004 23341100 		sd	ra,8(sp)
+ 209 0008 23308100 		sd	s0,0(sp)
+ 210              		.cfi_offset 1, -8
+ 211              		.cfi_offset 8, -16
+ 212 000c 13040101 		addi	s0,sp,16
+ 213              		.cfi_def_cfa 8, 0
+ 214              	.LBB28:
+  15:tests/testBarrier.cpp **** public:
+ 215              		.loc 1 15 7 is_stmt 0
+ 216 0010 97070000 		lla	a5,_ZTV4Test+16
+ 216      93870700 
+ 217 0018 2330F500 		sd	a5,0(a0)
+ 218 001c 97000000 		call	_ZN6ThreadD2Ev@plt
+ 218      E7800000 
+ 219              	.LVL26:
+ 220              	.LBE28:
+ 221 0024 83308100 		ld	ra,8(sp)
+ 222              		.cfi_restore 1
+ 223 0028 03340100 		ld	s0,0(sp)
+ 224              		.cfi_restore 8
+ 225              		.cfi_def_cfa 2, 16
+ 226 002c 13010101 		addi	sp,sp,16
+ 227              		.cfi_def_cfa_offset 0
+ 228 0030 67800000 		jr	ra
+ 229              		.cfi_endproc
+ 230              	.LFE8:
+ 232              		.weak	_ZN4TestD1Ev
+ 233              		.set	_ZN4TestD1Ev,_ZN4TestD2Ev
+ 234              		.section	.text._ZN4TestD0Ev,"axG",@progbits,_ZN4TestD5Ev,comdat
+ 235              		.align	2
+ 236              		.weak	_ZN4TestD0Ev
+ 238              	_ZN4TestD0Ev:
+ 239              	.LFB10:
+  15:tests/testBarrier.cpp **** public:
+ 240              		.loc 1 15 7 is_stmt 1
+ 241              		.cfi_startproc
+ 242              	.LVL27:
+ 243 0000 130101FE 		addi	sp,sp,-32
+ 244              		.cfi_def_cfa_offset 32
+ 245 0004 233C1100 		sd	ra,24(sp)
+ 246 0008 23388100 		sd	s0,16(sp)
+ 247 000c 23349100 		sd	s1,8(sp)
+ 248              		.cfi_offset 1, -8
+ 249              		.cfi_offset 8, -16
+ 250              		.cfi_offset 9, -24
+ 251 0010 13040102 		addi	s0,sp,32
+ 252              		.cfi_def_cfa 8, 0
+ 253 0014 93040500 		mv	s1,a0
+ 254              	.LVL28:
+ 255              	.LBB29:
+ 256              	.LBB30:
+GAS LISTING /tmp/ccMULnlE.s 			page 7
+
+
+  15:tests/testBarrier.cpp **** public:
+ 257              		.loc 1 15 7 is_stmt 0
+ 258 0018 97070000 		lla	a5,_ZTV4Test+16
+ 258      93870700 
+ 259 0020 2330F500 		sd	a5,0(a0)
+ 260 0024 97000000 		call	_ZN6ThreadD2Ev@plt
+ 260      E7800000 
+ 261              	.LVL29:
+ 262              	.LBE30:
+ 263              	.LBE29:
+ 264 002c 13850400 		mv	a0,s1
+ 265 0030 97000000 		call	_ZdlPv@plt
+ 265      E7800000 
+ 266              	.LVL30:
+ 267 0038 83308101 		ld	ra,24(sp)
+ 268              		.cfi_restore 1
+ 269 003c 03340101 		ld	s0,16(sp)
+ 270              		.cfi_restore 8
+ 271              		.cfi_def_cfa 2, 32
+ 272 0040 83348100 		ld	s1,8(sp)
+ 273              		.cfi_restore 9
+ 274              	.LVL31:
+ 275 0044 13010102 		addi	sp,sp,32
+ 276              		.cfi_def_cfa_offset 0
+ 277 0048 67800000 		jr	ra
+ 278              		.cfi_endproc
+ 279              	.LFE10:
+ 281              		.section	.rodata.str1.8,"aMS",@progbits,1
+ 282              		.align	3
+ 283              	.LC5:
+ 284 0000 54687265 		.string	"ThreadA created!\n"
+ 284      61644120 
+ 284      63726561 
+ 284      74656421 
+ 284      0A00
+ 285              		.text
+ 286              		.align	2
+ 287              		.globl	_Z11testBarrierv
+ 289              	_Z11testBarrierv:
+ 290              	.LFB6:
+  43:tests/testBarrier.cpp ****         }
+  44:tests/testBarrier.cpp **** //        numberOfThreads--;
+  45:tests/testBarrier.cpp **** //        if(numberOfThreads == 0 ) thread_dispatch();
+  46:tests/testBarrier.cpp ****     }
+  47:tests/testBarrier.cpp **** };
+  48:tests/testBarrier.cpp **** 
+  49:tests/testBarrier.cpp **** void testBarrier()
+  50:tests/testBarrier.cpp **** {
+ 291              		.loc 1 50 1 is_stmt 1
+ 292              		.cfi_startproc
+ 293              		.cfi_personality 0x9b,DW.ref.__gxx_personality_v0
+ 294              		.cfi_lsda 0x1b,.LLSDA6
+ 295 0000 130101F9 		addi	sp,sp,-112
+ 296              		.cfi_def_cfa_offset 112
+ 297 0004 23341106 		sd	ra,104(sp)
+ 298 0008 23308106 		sd	s0,96(sp)
+ 299 000c 233C9104 		sd	s1,88(sp)
+GAS LISTING /tmp/ccMULnlE.s 			page 8
+
+
+ 300 0010 23382105 		sd	s2,80(sp)
+ 301              		.cfi_offset 1, -8
+ 302              		.cfi_offset 8, -16
+ 303              		.cfi_offset 9, -24
+ 304              		.cfi_offset 18, -32
+ 305 0014 13040107 		addi	s0,sp,112
+ 306              		.cfi_def_cfa 8, 0
+  51:tests/testBarrier.cpp ****     Thread* threads[10];
+ 307              		.loc 1 51 5
+  52:tests/testBarrier.cpp **** 
+  53:tests/testBarrier.cpp ****     for(int i = 0; i< N; i++){
+ 308              		.loc 1 53 5
+ 309              	.LVL32:
+ 310              	.LBB31:
+ 311              		.loc 1 53 13 is_stmt 0
+ 312 0018 13090000 		li	s2,0
+ 313 001c 6F008004 		j	.L15
+ 314              	.LVL33:
+ 315              	.L23:
+ 316              	.LBB32:
+ 317              	.LBB33:
+  17:tests/testBarrier.cpp **** 
+ 318              		.loc 1 17 19
+ 319 0020 97070000 		lla	a5,_ZTV4Test+16
+ 319      93870700 
+ 320 0028 23B0F400 		sd	a5,0(s1)
+ 321              	.LVL34:
+ 322              	.LBE33:
+ 323              	.LBE32:
+  54:tests/testBarrier.cpp ****         threads[i] = new Test();
+ 324              		.loc 1 54 20
+ 325 002c 93173900 		slli	a5,s2,3
+ 326 0030 130704FE 		addi	a4,s0,-32
+ 327 0034 B307F700 		add	a5,a4,a5
+ 328 0038 23B897FA 		sd	s1,-80(a5)
+  55:tests/testBarrier.cpp ****         printString("ThreadA created!\n");
+ 329              		.loc 1 55 9 is_stmt 1
+ 330              		.loc 1 55 20 is_stmt 0
+ 331 003c 17050000 		lla	a0,.LC5
+ 331      13050500 
+ 332              	.LEHB0:
+ 333 0044 97000000 		call	_Z11printStringPKc@plt
+ 333      E7800000 
+ 334              	.LVL35:
+  56:tests/testBarrier.cpp ****         numberOfThreads++;
+ 335              		.loc 1 56 9 is_stmt 1
+ 336              		.loc 1 56 24 is_stmt 0
+ 337 004c 17070000 		lla	a4,.LANCHOR0
+ 337      13070700 
+ 338 0054 83270700 		lw	a5,0(a4)
+ 339 0058 9B871700 		addiw	a5,a5,1
+ 340 005c 2320F700 		sw	a5,0(a4)
+  53:tests/testBarrier.cpp ****         threads[i] = new Test();
+ 341              		.loc 1 53 5 is_stmt 1
+ 342 0060 1B091900 		addiw	s2,s2,1
+ 343              	.LVL36:
+ 344              	.L15:
+GAS LISTING /tmp/ccMULnlE.s 			page 9
+
+
+  53:tests/testBarrier.cpp ****         threads[i] = new Test();
+ 345              		.loc 1 53 21 discriminator 1
+ 346 0064 93079000 		li	a5,9
+ 347 0068 63C02703 		bgt	s2,a5,.L19
+  54:tests/testBarrier.cpp ****         printString("ThreadA created!\n");
+ 348              		.loc 1 54 9
+  54:tests/testBarrier.cpp ****         printString("ThreadA created!\n");
+ 349              		.loc 1 54 31 is_stmt 0
+ 350 006c 13050002 		li	a0,32
+ 351 0070 97000000 		call	_Znwm@plt
+ 351      E7800000 
+ 352              	.LVL37:
+ 353              	.LEHE0:
+ 354 0078 93040500 		mv	s1,a0
+ 355              	.LVL38:
+ 356              	.LEHB1:
+ 357              	.LBB35:
+ 358              	.LBB34:
+  17:tests/testBarrier.cpp **** 
+ 359              		.loc 1 17 19
+ 360 007c 97000000 		call	_ZN6ThreadC2Ev@plt
+ 360      E7800000 
+ 361              	.LVL39:
+ 362              	.LEHE1:
+ 363 0084 6FF0DFF9 		j	.L23
+ 364              	.LVL40:
+ 365              	.L19:
+ 366              	.LBE34:
+ 367              	.LBE35:
+ 368              	.LBE31:
+ 369              	.LBB36:
+  57:tests/testBarrier.cpp ****     }
+  58:tests/testBarrier.cpp **** 
+  59:tests/testBarrier.cpp ****     for(int i = 0; i< N; i++){
+ 370              		.loc 1 59 13
+ 371 0088 93040000 		li	s1,0
+ 372              	.L14:
+ 373              	.LVL41:
+ 374              		.loc 1 59 21 is_stmt 1 discriminator 1
+ 375 008c 93079000 		li	a5,9
+ 376 0090 63C29702 		bgt	s1,a5,.L20
+  60:tests/testBarrier.cpp ****         threads[i]->start();
+ 377              		.loc 1 60 9
+ 378              		.loc 1 60 18 is_stmt 0
+ 379 0094 93973400 		slli	a5,s1,3
+ 380 0098 130704FE 		addi	a4,s0,-32
+ 381 009c B307F700 		add	a5,a4,a5
+ 382              		.loc 1 60 26
+ 383 00a0 03B507FB 		ld	a0,-80(a5)
+ 384              	.LEHB2:
+ 385 00a4 97000000 		call	_ZN6Thread5startEv@plt
+ 385      E7800000 
+ 386              	.LVL42:
+  59:tests/testBarrier.cpp ****         threads[i]->start();
+ 387              		.loc 1 59 5 is_stmt 1
+ 388 00ac 9B841400 		addiw	s1,s1,1
+ 389              	.LVL43:
+GAS LISTING /tmp/ccMULnlE.s 			page 10
+
+
+ 390 00b0 6FF0DFFD 		j	.L14
+ 391              	.LVL44:
+ 392              	.L20:
+ 393              	.LBE36:
+ 394              	.LBB37:
+  61:tests/testBarrier.cpp ****     }
+  62:tests/testBarrier.cpp **** 
+  63:tests/testBarrier.cpp ****     for(int i = 0; i< N; i++){
+ 395              		.loc 1 63 13 is_stmt 0
+ 396 00b4 93040000 		li	s1,0
+ 397              	.LVL45:
+ 398              	.L16:
+ 399              		.loc 1 63 21 is_stmt 1 discriminator 1
+ 400 00b8 93079000 		li	a5,9
+ 401 00bc 63C09704 		bgt	s1,a5,.L13
+  64:tests/testBarrier.cpp ****         threads[i]->join();
+ 402              		.loc 1 64 9
+ 403              		.loc 1 64 18 is_stmt 0
+ 404 00c0 93973400 		slli	a5,s1,3
+ 405 00c4 130704FE 		addi	a4,s0,-32
+ 406 00c8 B307F700 		add	a5,a4,a5
+ 407              		.loc 1 64 25
+ 408 00cc 03B507FB 		ld	a0,-80(a5)
+ 409 00d0 97000000 		call	_ZN6Thread4joinEv@plt
+ 409      E7800000 
+ 410              	.LVL46:
+  63:tests/testBarrier.cpp ****         threads[i]->join();
+ 411              		.loc 1 63 5 is_stmt 1
+ 412 00d8 9B841400 		addiw	s1,s1,1
+ 413              	.LVL47:
+ 414 00dc 6FF0DFFD 		j	.L16
+ 415              	.LVL48:
+ 416              	.L21:
+ 417 00e0 13090500 		mv	s2,a0
+ 418              	.LVL49:
+ 419              	.LBE37:
+ 420              	.LBB38:
+  54:tests/testBarrier.cpp ****         printString("ThreadA created!\n");
+ 421              		.loc 1 54 31 is_stmt 0
+ 422 00e4 13850400 		mv	a0,s1
+ 423 00e8 97000000 		call	_ZdlPv@plt
+ 423      E7800000 
+ 424              	.LVL50:
+ 425 00f0 13050900 		mv	a0,s2
+ 426 00f4 97000000 		call	_Unwind_Resume@plt
+ 426      E7800000 
+ 427              	.LVL51:
+ 428              	.LEHE2:
+ 429              	.L13:
+ 430              	.LBE38:
+  65:tests/testBarrier.cpp ****     }
+  66:tests/testBarrier.cpp **** 
+  67:tests/testBarrier.cpp **** }...
+ 431              		.loc 1 67 1
+ 432 00fc 83308106 		ld	ra,104(sp)
+ 433              		.cfi_restore 1
+ 434 0100 03340106 		ld	s0,96(sp)
+GAS LISTING /tmp/ccMULnlE.s 			page 11
+
+
+ 435              		.cfi_restore 8
+ 436              		.cfi_def_cfa 2, 112
+ 437 0104 83348105 		ld	s1,88(sp)
+ 438              		.cfi_restore 9
+ 439              	.LVL52:
+ 440 0108 03390105 		ld	s2,80(sp)
+ 441              		.cfi_restore 18
+ 442              	.LVL53:
+ 443 010c 13010107 		addi	sp,sp,112
+ 444              		.cfi_def_cfa_offset 0
+ 445 0110 67800000 		jr	ra
+ 446              		.cfi_endproc
+ 447              	.LFE6:
+ 448              		.globl	__gxx_personality_v0
+ 449              		.section	.gcc_except_table,"a",@progbits
+ 450              	.LLSDA6:
+ 451 0000 FF       		.byte	0xff
+ 452 0001 FF       		.byte	0xff
+ 453 0002 03       		.byte	0x3
+ 454 0003 27       		.byte	0x27
+ 455 0004 00000000 		.4byte	.LEHB0-.LFB6
+ 456 0008 00000000 		.4byte	.LEHE0-.LEHB0
+ 457 000c 00000000 		.4byte	0
+ 458 0010 00       		.byte	0
+ 459 0011 00000000 		.4byte	.LEHB1-.LFB6
+ 460 0015 00000000 		.4byte	.LEHE1-.LEHB1
+ 461 0019 00000000 		.4byte	.L21-.LFB6
+ 462 001d 00       		.byte	0
+ 463 001e 00000000 		.4byte	.LEHB2-.LFB6
+ 464 0022 00000000 		.4byte	.LEHE2-.LEHB2
+ 465 0026 00000000 		.4byte	0
+ 466 002a 00       		.byte	0
+ 467              		.text
+ 469              		.weak	_ZTV4Test
+ 470              		.section	.data.rel.ro.local._ZTV4Test,"awG",@progbits,_ZTV4Test,comdat
+ 471              		.align	3
+ 474              	_ZTV4Test:
+ 475 0000 00000000 		.dword	0
+ 475      00000000 
+ 476 0008 00000000 		.dword	0
+ 476      00000000 
+ 477 0010 00000000 		.dword	_ZN4TestD1Ev
+ 477      00000000 
+ 478 0018 00000000 		.dword	_ZN4TestD0Ev
+ 478      00000000 
+ 479 0020 00000000 		.dword	_ZN4Test3runEv
+ 479      00000000 
+ 480              		.bss
+ 481              		.align	2
+ 482              		.set	.LANCHOR0,. + 0
+ 485              	_ZL15numberOfThreads:
+ 486 0000 00000000 		.zero	4
+ 487              		.text
+ 488              	.Letext0:
+ 489              		.file 2 "tests/../h/../lib/hw.h"
+ 490              		.file 3 "tests/../h/syscall_cpp.hpp"
+ 491              		.file 4 "tests/../h/syscall_c.hpp"
+GAS LISTING /tmp/ccMULnlE.s 			page 12
+
+
+ 492              		.file 5 "tests/printing.hpp"
+ 2446              		.align	3
+ 2449              	DW.ref.__gxx_personality_v0:
+ 2450 0000 00000000 		.dword	__gxx_personality_v0
+ 2450      00000000 
+ 2451              		.ident	"GCC: (Ubuntu 9.4.0-1ubuntu1~20.04) 9.4.0"
+ 2452              		.section	.note.GNU-stack,"",@progbits
+GAS LISTING /tmp/ccMULnlE.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 testBarrier.cpp
+     /tmp/ccMULnlE.s:26     .text._ZN4Test3runEv:0000000000000000 _ZN4Test3runEv
+     /tmp/ccMULnlE.s:30     .text._ZN4Test3runEv:0000000000000000 .L0 
+     /tmp/ccMULnlE.s:32     .text._ZN4Test3runEv:0000000000000000 .L0 
+     /tmp/ccMULnlE.s:33     .text._ZN4Test3runEv:0000000000000004 .L0 
+     /tmp/ccMULnlE.s:39     .text._ZN4Test3runEv:0000000000000018 .L0 
+     /tmp/ccMULnlE.s:40     .text._ZN4Test3runEv:0000000000000018 .L0 
+     /tmp/ccMULnlE.s:41     .text._ZN4Test3runEv:0000000000000018 .L0 
+     /tmp/ccMULnlE.s:42     .text._ZN4Test3runEv:0000000000000018 .L0 
+     /tmp/ccMULnlE.s:43     .text._ZN4Test3runEv:0000000000000018 .L0 
+     /tmp/ccMULnlE.s:45     .text._ZN4Test3runEv:000000000000001c .L0 
+     /tmp/ccMULnlE.s:50     .text._ZN4Test3runEv:000000000000001c .L0 
+     /tmp/ccMULnlE.s:51     .text._ZN4Test3runEv:000000000000001c .L0 
+     /tmp/ccMULnlE.s:52     .text._ZN4Test3runEv:000000000000001c .L0 
+     /tmp/ccMULnlE.s:57     .text._ZN4Test3runEv:0000000000000028 .L0 
+     /tmp/ccMULnlE.s:58     .text._ZN4Test3runEv:0000000000000028 .L0 
+     /tmp/ccMULnlE.s:62     .text._ZN4Test3runEv:0000000000000038 .L0 
+     /tmp/ccMULnlE.s:63     .text._ZN4Test3runEv:0000000000000038 .L0 
+     /tmp/ccMULnlE.s:69     .text._ZN4Test3runEv:000000000000004c .L0 
+     /tmp/ccMULnlE.s:70     .text._ZN4Test3runEv:000000000000004c .L0 
+     /tmp/ccMULnlE.s:75     .text._ZN4Test3runEv:000000000000005c .L0 
+     /tmp/ccMULnlE.s:76     .text._ZN4Test3runEv:000000000000005c .L0 
+     /tmp/ccMULnlE.s:85     .text._ZN4Test3runEv:0000000000000064 .L0 
+     /tmp/ccMULnlE.s:86     .text._ZN4Test3runEv:0000000000000064 .L0 
+     /tmp/ccMULnlE.s:90     .text._ZN4Test3runEv:000000000000006c .L0 
+     /tmp/ccMULnlE.s:94     .text._ZN4Test3runEv:0000000000000070 .L0 
+     /tmp/ccMULnlE.s:95     .text._ZN4Test3runEv:0000000000000070 .L0 
+     /tmp/ccMULnlE.s:98     .text._ZN4Test3runEv:0000000000000078 .L0 
+     /tmp/ccMULnlE.s:102    .text._ZN4Test3runEv:000000000000007c .L0 
+     /tmp/ccMULnlE.s:106    .text._ZN4Test3runEv:0000000000000080 .L0 
+     /tmp/ccMULnlE.s:110    .text._ZN4Test3runEv:000000000000008c .L0 
+     /tmp/ccMULnlE.s:119    .text._ZN4Test3runEv:0000000000000094 .L0 
+     /tmp/ccMULnlE.s:120    .text._ZN4Test3runEv:0000000000000094 .L0 
+     /tmp/ccMULnlE.s:123    .text._ZN4Test3runEv:000000000000009c .L0 
+     /tmp/ccMULnlE.s:124    .text._ZN4Test3runEv:000000000000009c .L0 
+     /tmp/ccMULnlE.s:128    .text._ZN4Test3runEv:00000000000000ac .L0 
+     /tmp/ccMULnlE.s:129    .text._ZN4Test3runEv:00000000000000ac .L0 
+     /tmp/ccMULnlE.s:135    .text._ZN4Test3runEv:00000000000000c0 .L0 
+     /tmp/ccMULnlE.s:136    .text._ZN4Test3runEv:00000000000000c0 .L0 
+     /tmp/ccMULnlE.s:140    .text._ZN4Test3runEv:00000000000000d0 .L0 
+     /tmp/ccMULnlE.s:141    .text._ZN4Test3runEv:00000000000000d0 .L0 
+     /tmp/ccMULnlE.s:147    .text._ZN4Test3runEv:00000000000000e4 .L0 
+     /tmp/ccMULnlE.s:148    .text._ZN4Test3runEv:00000000000000e4 .L0 
+     /tmp/ccMULnlE.s:153    .text._ZN4Test3runEv:00000000000000f4 .L0 
+     /tmp/ccMULnlE.s:157    .text._ZN4Test3runEv:00000000000000f8 .L0 
+     /tmp/ccMULnlE.s:161    .text._ZN4Test3runEv:0000000000000100 .L0 
+     /tmp/ccMULnlE.s:162    .text._ZN4Test3runEv:0000000000000100 .L0 
+     /tmp/ccMULnlE.s:168    .text._ZN4Test3runEv:000000000000010c .L0 
+     /tmp/ccMULnlE.s:169    .text._ZN4Test3runEv:000000000000010c .L0 
+     /tmp/ccMULnlE.s:179    .text._ZN4Test3runEv:0000000000000114 .L0 
+     /tmp/ccMULnlE.s:180    .text._ZN4Test3runEv:0000000000000118 .L0 
+     /tmp/ccMULnlE.s:182    .text._ZN4Test3runEv:000000000000011c .L0 
+     /tmp/ccMULnlE.s:183    .text._ZN4Test3runEv:000000000000011c .L0 
+     /tmp/ccMULnlE.s:185    .text._ZN4Test3runEv:0000000000000120 .L0 
+     /tmp/ccMULnlE.s:188    .text._ZN4Test3runEv:0000000000000124 .L0 
+     /tmp/ccMULnlE.s:190    .text._ZN4Test3runEv:0000000000000128 .L0 
+GAS LISTING /tmp/ccMULnlE.s 			page 14
+
+
+     /tmp/ccMULnlE.s:192    .text._ZN4Test3runEv:000000000000012c .L0 
+     /tmp/ccMULnlE.s:194    .text._ZN4Test3runEv:0000000000000130 .L0 
+     /tmp/ccMULnlE.s:201    .text._ZN4TestD2Ev:0000000000000000 _ZN4TestD2Ev
+     /tmp/ccMULnlE.s:204    .text._ZN4TestD2Ev:0000000000000000 .L0 
+     /tmp/ccMULnlE.s:206    .text._ZN4TestD2Ev:0000000000000000 .L0 
+     /tmp/ccMULnlE.s:207    .text._ZN4TestD2Ev:0000000000000004 .L0 
+     /tmp/ccMULnlE.s:210    .text._ZN4TestD2Ev:000000000000000c .L0 
+     /tmp/ccMULnlE.s:211    .text._ZN4TestD2Ev:000000000000000c .L0 
+     /tmp/ccMULnlE.s:213    .text._ZN4TestD2Ev:0000000000000010 .L0 
+     /tmp/ccMULnlE.s:474    .data.rel.ro.local._ZTV4Test:0000000000000000 _ZTV4Test
+     /tmp/ccMULnlE.s:216    .text._ZN4TestD2Ev:0000000000000010 .L0 
+     /tmp/ccMULnlE.s:222    .text._ZN4TestD2Ev:0000000000000028 .L0 
+     /tmp/ccMULnlE.s:224    .text._ZN4TestD2Ev:000000000000002c .L0 
+     /tmp/ccMULnlE.s:225    .text._ZN4TestD2Ev:000000000000002c .L0 
+     /tmp/ccMULnlE.s:227    .text._ZN4TestD2Ev:0000000000000030 .L0 
+     /tmp/ccMULnlE.s:229    .text._ZN4TestD2Ev:0000000000000034 .L0 
+     /tmp/ccMULnlE.s:201    .text._ZN4TestD2Ev:0000000000000000 _ZN4TestD1Ev
+     /tmp/ccMULnlE.s:238    .text._ZN4TestD0Ev:0000000000000000 _ZN4TestD0Ev
+     /tmp/ccMULnlE.s:241    .text._ZN4TestD0Ev:0000000000000000 .L0 
+     /tmp/ccMULnlE.s:243    .text._ZN4TestD0Ev:0000000000000000 .L0 
+     /tmp/ccMULnlE.s:244    .text._ZN4TestD0Ev:0000000000000004 .L0 
+     /tmp/ccMULnlE.s:248    .text._ZN4TestD0Ev:0000000000000010 .L0 
+     /tmp/ccMULnlE.s:249    .text._ZN4TestD0Ev:0000000000000010 .L0 
+     /tmp/ccMULnlE.s:250    .text._ZN4TestD0Ev:0000000000000010 .L0 
+     /tmp/ccMULnlE.s:252    .text._ZN4TestD0Ev:0000000000000014 .L0 
+     /tmp/ccMULnlE.s:258    .text._ZN4TestD0Ev:0000000000000018 .L0 
+     /tmp/ccMULnlE.s:268    .text._ZN4TestD0Ev:000000000000003c .L0 
+     /tmp/ccMULnlE.s:270    .text._ZN4TestD0Ev:0000000000000040 .L0 
+     /tmp/ccMULnlE.s:271    .text._ZN4TestD0Ev:0000000000000040 .L0 
+     /tmp/ccMULnlE.s:273    .text._ZN4TestD0Ev:0000000000000044 .L0 
+     /tmp/ccMULnlE.s:276    .text._ZN4TestD0Ev:0000000000000048 .L0 
+     /tmp/ccMULnlE.s:278    .text._ZN4TestD0Ev:000000000000004c .L0 
+     /tmp/ccMULnlE.s:289    .text:0000000000000000 _Z11testBarrierv
+     /tmp/ccMULnlE.s:292    .text:0000000000000000 .L0 
+     /tmp/ccMULnlE.s:2449   .data.rel.local.DW.ref.__gxx_personality_v0:0000000000000000 DW.ref.__gxx_personality_v0
+     /tmp/ccMULnlE.s:295    .text:0000000000000000 .L0 
+     /tmp/ccMULnlE.s:296    .text:0000000000000004 .L0 
+     /tmp/ccMULnlE.s:301    .text:0000000000000014 .L0 
+     /tmp/ccMULnlE.s:302    .text:0000000000000014 .L0 
+     /tmp/ccMULnlE.s:303    .text:0000000000000014 .L0 
+     /tmp/ccMULnlE.s:304    .text:0000000000000014 .L0 
+     /tmp/ccMULnlE.s:306    .text:0000000000000018 .L0 
+     /tmp/ccMULnlE.s:308    .text:0000000000000018 .L0 
+     /tmp/ccMULnlE.s:311    .text:0000000000000018 .L0 
+     /tmp/ccMULnlE.s:312    .text:0000000000000018 .L0 
+     /tmp/ccMULnlE.s:319    .text:0000000000000020 .L0 
+     /tmp/ccMULnlE.s:325    .text:000000000000002c .L0 
+     /tmp/ccMULnlE.s:330    .text:000000000000003c .L0 
+     /tmp/ccMULnlE.s:331    .text:000000000000003c .L0 
+     /tmp/ccMULnlE.s:336    .text:000000000000004c .L0 
+     /tmp/ccMULnlE.s:337    .text:000000000000004c .L0 
+     /tmp/ccMULnlE.s:342    .text:0000000000000060 .L0 
+     /tmp/ccMULnlE.s:346    .text:0000000000000064 .L0 
+     /tmp/ccMULnlE.s:349    .text:000000000000006c .L0 
+     /tmp/ccMULnlE.s:350    .text:000000000000006c .L0 
+     /tmp/ccMULnlE.s:360    .text:000000000000007c .L0 
+     /tmp/ccMULnlE.s:371    .text:0000000000000088 .L0 
+GAS LISTING /tmp/ccMULnlE.s 			page 15
+
+
+     /tmp/ccMULnlE.s:375    .text:000000000000008c .L0 
+     /tmp/ccMULnlE.s:378    .text:0000000000000094 .L0 
+     /tmp/ccMULnlE.s:379    .text:0000000000000094 .L0 
+     /tmp/ccMULnlE.s:383    .text:00000000000000a0 .L0 
+     /tmp/ccMULnlE.s:388    .text:00000000000000ac .L0 
+     /tmp/ccMULnlE.s:396    .text:00000000000000b4 .L0 
+     /tmp/ccMULnlE.s:400    .text:00000000000000b8 .L0 
+     /tmp/ccMULnlE.s:403    .text:00000000000000c0 .L0 
+     /tmp/ccMULnlE.s:404    .text:00000000000000c0 .L0 
+     /tmp/ccMULnlE.s:408    .text:00000000000000cc .L0 
+     /tmp/ccMULnlE.s:412    .text:00000000000000d8 .L0 
+     /tmp/ccMULnlE.s:422    .text:00000000000000e4 .L0 
+     /tmp/ccMULnlE.s:432    .text:00000000000000fc .L0 
+     /tmp/ccMULnlE.s:433    .text:0000000000000100 .L0 
+     /tmp/ccMULnlE.s:435    .text:0000000000000104 .L0 
+     /tmp/ccMULnlE.s:436    .text:0000000000000104 .L0 
+     /tmp/ccMULnlE.s:438    .text:0000000000000108 .L0 
+     /tmp/ccMULnlE.s:441    .text:000000000000010c .L0 
+     /tmp/ccMULnlE.s:444    .text:0000000000000110 .L0 
+     /tmp/ccMULnlE.s:446    .text:0000000000000114 .L0 
+     /tmp/ccMULnlE.s:482    .bss:0000000000000000 .LANCHOR0
+     /tmp/ccMULnlE.s:485    .bss:0000000000000000 _ZL15numberOfThreads
+     /tmp/ccMULnlE.s:197    .text._ZN4Test3runEv:0000000000000130 .L0 
+     /tmp/ccMULnlE.s:234    .text._ZN4TestD2Ev:0000000000000034 .L0 
+     /tmp/ccMULnlE.s:281    .text._ZN4TestD0Ev:000000000000004c .L0 
+     /tmp/ccMULnlE.s:493    .text:0000000000000114 .L0 
+     /tmp/ccMULnlE.s:319    .text:0000000000000020 .L0 
+     /tmp/ccMULnlE.s:283    .rodata.str1.8:0000000000000000 .LC5
+     /tmp/ccMULnlE.s:331    .text:000000000000003c .L0 
+     /tmp/ccMULnlE.s:337    .text:000000000000004c .L0 
+     /tmp/ccMULnlE.s:344    .text:0000000000000064 .L15
+     /tmp/ccMULnlE.s:365    .text:0000000000000088 .L19
+     /tmp/ccMULnlE.s:315    .text:0000000000000020 .L23
+     /tmp/ccMULnlE.s:392    .text:00000000000000b4 .L20
+     /tmp/ccMULnlE.s:372    .text:000000000000008c .L14
+     /tmp/ccMULnlE.s:429    .text:00000000000000fc .L13
+     /tmp/ccMULnlE.s:398    .text:00000000000000b8 .L16
+     /tmp/ccMULnlE.s:8      .rodata._ZN4Test3runEv.str1.8:0000000000000000 .LC0
+     /tmp/ccMULnlE.s:58     .text._ZN4Test3runEv:0000000000000028 .L0 
+     /tmp/ccMULnlE.s:11     .rodata._ZN4Test3runEv.str1.8:0000000000000010 .LC1
+     /tmp/ccMULnlE.s:70     .text._ZN4Test3runEv:000000000000004c .L0 
+     /tmp/ccMULnlE.s:14     .rodata._ZN4Test3runEv.str1.8:0000000000000020 .LC2
+     /tmp/ccMULnlE.s:124    .text._ZN4Test3runEv:000000000000009c .L0 
+     /tmp/ccMULnlE.s:17     .rodata._ZN4Test3runEv.str1.8:0000000000000030 .LC3
+     /tmp/ccMULnlE.s:136    .text._ZN4Test3runEv:00000000000000c0 .L0 
+     /tmp/ccMULnlE.s:20     .rodata._ZN4Test3runEv.str1.8:0000000000000040 .LC4
+     /tmp/ccMULnlE.s:148    .text._ZN4Test3runEv:00000000000000e4 .L0 
+     /tmp/ccMULnlE.s:155    .text._ZN4Test3runEv:00000000000000f8 .L7
+     /tmp/ccMULnlE.s:114    .text._ZN4Test3runEv:0000000000000094 .L3
+     /tmp/ccMULnlE.s:80     .text._ZN4Test3runEv:0000000000000064 .L4
+     /tmp/ccMULnlE.s:103    .text._ZN4Test3runEv:0000000000000080 .L5
+     /tmp/ccMULnlE.s:172    .text._ZN4Test3runEv:0000000000000114 .L1
+     /tmp/ccMULnlE.s:92     .text._ZN4Test3runEv:0000000000000070 .L6
+     /tmp/ccMULnlE.s:216    .text._ZN4TestD2Ev:0000000000000010 .L0 
+     /tmp/ccMULnlE.s:258    .text._ZN4TestD0Ev:0000000000000018 .L0 
+     /tmp/ccMULnlE.s:332    .text:0000000000000044 .LEHB0
+     /tmp/ccMULnlE.s:290    .text:0000000000000000 .LFB6
+GAS LISTING /tmp/ccMULnlE.s 			page 16
+
+
+     /tmp/ccMULnlE.s:353    .text:0000000000000078 .LEHE0
+     /tmp/ccMULnlE.s:356    .text:000000000000007c .LEHB1
+     /tmp/ccMULnlE.s:362    .text:0000000000000084 .LEHE1
+     /tmp/ccMULnlE.s:416    .text:00000000000000e0 .L21
+     /tmp/ccMULnlE.s:384    .text:00000000000000a4 .LEHB2
+     /tmp/ccMULnlE.s:428    .text:00000000000000fc .LEHE2
+     /tmp/ccMULnlE.s:1314   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccMULnlE.s:2373   .debug_str:0000000000000157 .LASF50
+     /tmp/ccMULnlE.s:2393   .debug_str:00000000000002a0 .LASF51
+     /tmp/ccMULnlE.s:2433   .debug_str:00000000000003b2 .LASF52
+     /tmp/ccMULnlE.s:2285   .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccMULnlE.s:2321   .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccMULnlE.s:2383   .debug_str:000000000000026b .LASF0
+     /tmp/ccMULnlE.s:2367   .debug_str:000000000000012b .LASF1
+     /tmp/ccMULnlE.s:2359   .debug_str:00000000000000f6 .LASF2
+     /tmp/ccMULnlE.s:2337   .debug_str:000000000000005d .LASF4
+     /tmp/ccMULnlE.s:2365   .debug_str:0000000000000119 .LASF3
+     /tmp/ccMULnlE.s:2329   .debug_str:0000000000000028 .LASF5
+     /tmp/ccMULnlE.s:2325   .debug_str:000000000000000d .LASF6
+     /tmp/ccMULnlE.s:2353   .debug_str:00000000000000cd .LASF7
+     /tmp/ccMULnlE.s:2395   .debug_str:00000000000002b6 .LASF8
+     /tmp/ccMULnlE.s:2335   .debug_str:000000000000004f .LASF9
+     /tmp/ccMULnlE.s:2441   .debug_str:00000000000003f4 .LASF10
+     /tmp/ccMULnlE.s:2355   .debug_str:00000000000000e0 .LASF11
+     /tmp/ccMULnlE.s:2419   .debug_str:0000000000000366 .LASF12
+     /tmp/ccMULnlE.s:2401   .debug_str:00000000000002eb .LASF13
+     /tmp/ccMULnlE.s:2369   .debug_str:000000000000013e .LASF14
+     /tmp/ccMULnlE.s:2343   .debug_str:0000000000000080 .LASF15
+     /tmp/ccMULnlE.s:2397   .debug_str:00000000000002c6 .LASF16
+     /tmp/ccMULnlE.s:2389   .debug_str:000000000000028e .LASF17
+     /tmp/ccMULnlE.s:2363   .debug_str:0000000000000109 .LASF18
+     /tmp/ccMULnlE.s:2417   .debug_str:0000000000000361 .LASF19
+     /tmp/ccMULnlE.s:2413   .debug_str:0000000000000346 .LASF20
+     /tmp/ccMULnlE.s:2437   .debug_str:00000000000003d8 .LASF21
+     /tmp/ccMULnlE.s:2331   .debug_str:000000000000002f .LASF23
+     /tmp/ccMULnlE.s:2399   .debug_str:00000000000002dc .LASF53
+     /tmp/ccMULnlE.s:2323   .debug_str:0000000000000000 .LASF22
+     /tmp/ccMULnlE.s:2411   .debug_str:000000000000032c .LASF24
+     /tmp/ccMULnlE.s:2427   .debug_str:0000000000000397 .LASF54
+     /tmp/ccMULnlE.s:2435   .debug_str:00000000000003cb .LASF55
+     /tmp/ccMULnlE.s:2357   .debug_str:00000000000000ef .LASF56
+     /tmp/ccMULnlE.s:2339   .debug_str:0000000000000064 .LASF25
+     /tmp/ccMULnlE.s:2385   .debug_str:0000000000000278 .LASF27
+     /tmp/ccMULnlE.s:2381   .debug_str:0000000000000259 .LASF26
+     /tmp/ccMULnlE.s:2345   .debug_str:0000000000000096 .LASF28
+     /tmp/ccMULnlE.s:2377   .debug_str:0000000000000233 .LASF29
+     /tmp/ccMULnlE.s:2327   .debug_str:0000000000000020 .LASF30
+     /tmp/ccMULnlE.s:2361   .debug_str:0000000000000104 .LASF31
+     /tmp/ccMULnlE.s:2409   .debug_str:0000000000000322 .LASF32
+     /tmp/ccMULnlE.s:2425   .debug_str:000000000000038a .LASF33
+     /tmp/ccMULnlE.s:239    .text._ZN4TestD0Ev:0000000000000000 .LFB10
+     /tmp/ccMULnlE.s:279    .text._ZN4TestD0Ev:000000000000004c .LFE10
+     /tmp/ccMULnlE.s:2089   .debug_loc:0000000000000000 .LLST8
+     /tmp/ccMULnlE.s:255    .text._ZN4TestD0Ev:0000000000000018 .LBB29
+     /tmp/ccMULnlE.s:263    .text._ZN4TestD0Ev:000000000000002c .LBE29
+     /tmp/ccMULnlE.s:2107   .debug_loc:000000000000004c .LLST9
+     /tmp/ccMULnlE.s:261    .text._ZN4TestD0Ev:000000000000002c .LVL29
+GAS LISTING /tmp/ccMULnlE.s 			page 17
+
+
+     /tmp/ccMULnlE.s:266    .text._ZN4TestD0Ev:0000000000000038 .LVL30
+     /tmp/ccMULnlE.s:2391   .debug_str:0000000000000293 .LASF34
+     /tmp/ccMULnlE.s:202    .text._ZN4TestD2Ev:0000000000000000 .LFB8
+     /tmp/ccMULnlE.s:230    .text._ZN4TestD2Ev:0000000000000034 .LFE8
+     /tmp/ccMULnlE.s:2118   .debug_loc:0000000000000082 .LLST7
+     /tmp/ccMULnlE.s:219    .text._ZN4TestD2Ev:0000000000000024 .LVL26
+     /tmp/ccMULnlE.s:2351   .debug_str:00000000000000c1 .LASF57
+     /tmp/ccMULnlE.s:2379   .debug_str:0000000000000248 .LASF58
+     /tmp/ccMULnlE.s:447    .text:0000000000000114 .LFE6
+     /tmp/ccMULnlE.s:2407   .debug_str:000000000000031a .LASF35
+     /tmp/ccMULnlE.s:2132   .debug_loc:00000000000000bb .LLST10
+     /tmp/ccMULnlE.s:316    .text:0000000000000020 .LBB32
+     /tmp/ccMULnlE.s:2148   .debug_loc:0000000000000105 .LLST11
+     /tmp/ccMULnlE.s:361    .text:0000000000000084 .LVL39
+     /tmp/ccMULnlE.s:334    .text:000000000000004c .LVL35
+     /tmp/ccMULnlE.s:352    .text:0000000000000078 .LVL37
+     /tmp/ccMULnlE.s:424    .text:00000000000000f0 .LVL50
+     /tmp/ccMULnlE.s:369    .text:0000000000000088 .LBB36
+     /tmp/ccMULnlE.s:393    .text:00000000000000b4 .LBE36
+     /tmp/ccMULnlE.s:2163   .debug_loc:000000000000014e .LLST12
+     /tmp/ccMULnlE.s:386    .text:00000000000000ac .LVL42
+     /tmp/ccMULnlE.s:394    .text:00000000000000b4 .LBB37
+     /tmp/ccMULnlE.s:419    .text:00000000000000e4 .LBE37
+     /tmp/ccMULnlE.s:2174   .debug_loc:0000000000000184 .LLST13
+     /tmp/ccMULnlE.s:410    .text:00000000000000d8 .LVL46
+     /tmp/ccMULnlE.s:427    .text:00000000000000fc .LVL51
+     /tmp/ccMULnlE.s:27     .text._ZN4Test3runEv:0000000000000000 .LFB4
+     /tmp/ccMULnlE.s:195    .text._ZN4Test3runEv:0000000000000130 .LFE4
+     /tmp/ccMULnlE.s:2185   .debug_loc:00000000000001ba .LLST0
+     /tmp/ccMULnlE.s:48     .text._ZN4Test3runEv:000000000000001c .LBB18
+     /tmp/ccMULnlE.s:177    .text._ZN4Test3runEv:0000000000000114 .LBE18
+     /tmp/ccMULnlE.s:2199   .debug_loc:00000000000001f3 .LLST1
+     /tmp/ccMULnlE.s:2213   .debug_loc:000000000000022c .LLST2
+     /tmp/ccMULnlE.s:74     .text._ZN4Test3runEv:000000000000005c .LBB20
+     /tmp/ccMULnlE.s:175    .text._ZN4Test3runEv:0000000000000114 .LBE20
+     /tmp/ccMULnlE.s:2220   .debug_loc:000000000000024f .LLST3
+     /tmp/ccMULnlE.s:2232   .debug_loc:0000000000000286 .LLST4
+     /tmp/ccMULnlE.s:2243   .debug_loc:00000000000002bc .LLST5
+     /tmp/ccMULnlE.s:100    .text._ZN4Test3runEv:000000000000007c .LBB24
+     /tmp/ccMULnlE.s:115    .text._ZN4Test3runEv:0000000000000094 .LBE24
+     /tmp/ccMULnlE.s:2255   .debug_loc:00000000000002f3 .LLST6
+     /tmp/ccMULnlE.s:87     .text._ZN4Test3runEv:000000000000006c .LVL9
+     /tmp/ccMULnlE.s:121    .text._ZN4Test3runEv:000000000000009c .LVL14
+     /tmp/ccMULnlE.s:126    .text._ZN4Test3runEv:00000000000000ac .LVL15
+     /tmp/ccMULnlE.s:133    .text._ZN4Test3runEv:00000000000000c0 .LVL16
+     /tmp/ccMULnlE.s:138    .text._ZN4Test3runEv:00000000000000d0 .LVL17
+     /tmp/ccMULnlE.s:145    .text._ZN4Test3runEv:00000000000000e4 .LVL18
+     /tmp/ccMULnlE.s:150    .text._ZN4Test3runEv:00000000000000f4 .LVL19
+     /tmp/ccMULnlE.s:163    .text._ZN4Test3runEv:0000000000000108 .LVL21
+     /tmp/ccMULnlE.s:53     .text._ZN4Test3runEv:0000000000000024 .LVL2
+     /tmp/ccMULnlE.s:60     .text._ZN4Test3runEv:0000000000000038 .LVL4
+     /tmp/ccMULnlE.s:67     .text._ZN4Test3runEv:000000000000004c .LVL5
+     /tmp/ccMULnlE.s:72     .text._ZN4Test3runEv:000000000000005c .LVL6
+     /tmp/ccMULnlE.s:2371   .debug_str:000000000000014a .LASF59
+     /tmp/ccMULnlE.s:2421   .debug_str:0000000000000376 .LASF38
+     /tmp/ccMULnlE.s:2387   .debug_str:000000000000027e .LASF40
+     /tmp/ccMULnlE.s:2333   .debug_str:000000000000003c .LASF36
+GAS LISTING /tmp/ccMULnlE.s 			page 18
+
+
+     /tmp/ccMULnlE.s:2439   .debug_str:00000000000003e8 .LASF37
+     /tmp/ccMULnlE.s:2429   .debug_str:000000000000039d .LASF39
+     /tmp/ccMULnlE.s:2423   .debug_str:000000000000037d .LASF41
+     /tmp/ccMULnlE.s:2431   .debug_str:00000000000003a3 .LASF42
+     /tmp/ccMULnlE.s:2375   .debug_str:000000000000021b .LASF43
+     /tmp/ccMULnlE.s:2347   .debug_str:000000000000009b .LASF44
+     /tmp/ccMULnlE.s:2403   .debug_str:00000000000002fb .LASF45
+     /tmp/ccMULnlE.s:2405   .debug_str:000000000000030b .LASF46
+     /tmp/ccMULnlE.s:2341   .debug_str:0000000000000077 .LASF47
+     /tmp/ccMULnlE.s:2349   .debug_str:00000000000000b0 .LASF48
+     /tmp/ccMULnlE.s:2415   .debug_str:0000000000000355 .LASF49
+     /tmp/ccMULnlE.s:242    .text._ZN4TestD0Ev:0000000000000000 .LVL27
+     /tmp/ccMULnlE.s:274    .text._ZN4TestD0Ev:0000000000000044 .LVL31
+     /tmp/ccMULnlE.s:254    .text._ZN4TestD0Ev:0000000000000018 .LVL28
+     /tmp/ccMULnlE.s:205    .text._ZN4TestD2Ev:0000000000000000 .LVL25
+     /tmp/ccMULnlE.s:309    .text:0000000000000018 .LVL32
+     /tmp/ccMULnlE.s:314    .text:0000000000000020 .LVL33
+     /tmp/ccMULnlE.s:418    .text:00000000000000e4 .LVL49
+     /tmp/ccMULnlE.s:442    .text:000000000000010c .LVL53
+     /tmp/ccMULnlE.s:321    .text:000000000000002c .LVL34
+     /tmp/ccMULnlE.s:355    .text:000000000000007c .LVL38
+     /tmp/ccMULnlE.s:364    .text:0000000000000088 .LVL40
+     /tmp/ccMULnlE.s:415    .text:00000000000000e0 .LVL48
+     /tmp/ccMULnlE.s:373    .text:000000000000008c .LVL41
+     /tmp/ccMULnlE.s:389    .text:00000000000000b0 .LVL43
+     /tmp/ccMULnlE.s:391    .text:00000000000000b4 .LVL44
+     /tmp/ccMULnlE.s:397    .text:00000000000000b8 .LVL45
+     /tmp/ccMULnlE.s:413    .text:00000000000000dc .LVL47
+     /tmp/ccMULnlE.s:439    .text:0000000000000108 .LVL52
+     /tmp/ccMULnlE.s:31     .text._ZN4Test3runEv:0000000000000000 .LVL0
+     /tmp/ccMULnlE.s:47     .text._ZN4Test3runEv:000000000000001c .LVL1
+     /tmp/ccMULnlE.s:55     .text._ZN4Test3runEv:0000000000000028 .LVL3
+     /tmp/ccMULnlE.s:77     .text._ZN4Test3runEv:0000000000000060 .LVL7
+     /tmp/ccMULnlE.s:79     .text._ZN4Test3runEv:0000000000000064 .LVL8
+     /tmp/ccMULnlE.s:186    .text._ZN4Test3runEv:0000000000000120 .LVL24
+     /tmp/ccMULnlE.s:154    .text._ZN4Test3runEv:00000000000000f8 .LVL20
+     /tmp/ccMULnlE.s:165    .text._ZN4Test3runEv:000000000000010c .LVL22
+     /tmp/ccMULnlE.s:171    .text._ZN4Test3runEv:0000000000000114 .LVL23
+     /tmp/ccMULnlE.s:104    .text._ZN4Test3runEv:0000000000000080 .LVL11
+     /tmp/ccMULnlE.s:113    .text._ZN4Test3runEv:0000000000000094 .LVL13
+     /tmp/ccMULnlE.s:494    .debug_info:0000000000000000 .Ldebug_info0
+     /tmp/ccMULnlE.s:5      .text:0000000000000000 .Ltext0
+     /tmp/ccMULnlE.s:488    .text:0000000000000114 .Letext0
+     /tmp/ccMULnlE.s:81     .text._ZN4Test3runEv:0000000000000064 .LBB21
+     /tmp/ccMULnlE.s:151    .text._ZN4Test3runEv:00000000000000f4 .LBE21
+     /tmp/ccMULnlE.s:159    .text._ZN4Test3runEv:0000000000000100 .LBB27
+     /tmp/ccMULnlE.s:174    .text._ZN4Test3runEv:0000000000000114 .LBE27
+     /tmp/ccMULnlE.s:82     .text._ZN4Test3runEv:0000000000000064 .LBB22
+     /tmp/ccMULnlE.s:117    .text._ZN4Test3runEv:0000000000000094 .LBE22
+     /tmp/ccMULnlE.s:167    .text._ZN4Test3runEv:000000000000010c .LBB26
+     /tmp/ccMULnlE.s:173    .text._ZN4Test3runEv:0000000000000114 .LBE26
+     /tmp/ccMULnlE.s:310    .text:0000000000000018 .LBB31
+     /tmp/ccMULnlE.s:368    .text:0000000000000088 .LBE31
+     /tmp/ccMULnlE.s:420    .text:00000000000000e4 .LBB38
+     /tmp/ccMULnlE.s:430    .text:00000000000000fc .LBE38
+     /tmp/ccMULnlE.s:323    .text:000000000000002c .LBE32
+     /tmp/ccMULnlE.s:357    .text:000000000000007c .LBB35
+GAS LISTING /tmp/ccMULnlE.s 			page 19
+
+
+     /tmp/ccMULnlE.s:367    .text:0000000000000088 .LBE35
+     /tmp/ccMULnlE.s:450    .gcc_except_table:0000000000000000 .LLSDA6
+                           .group:0000000000000000 _ZN4TestD5Ev
+
+UNDEFINED SYMBOLS
+_Z11getThreadIdv
+_Z11printStringPKc
+_Z8printIntiii
+_Z15thread_dispatchv
+_ZN6Thread7barrierEv
+_ZN6ThreadD2Ev
+_ZdlPv
+_Znwm
+_ZN6ThreadC2Ev
+_ZN6Thread5startEv
+_ZN6Thread4joinEv
+_Unwind_Resume
+__gxx_personality_v0
